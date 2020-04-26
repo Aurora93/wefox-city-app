@@ -23,6 +23,16 @@ export interface CityPost {
   updated_at: string;
 }
 
+export interface CityCreated {
+  id: number;
+  title: string;
+  content: string;
+  lat: string;
+  long: string;
+  image_url: string;
+  created_at: string;
+}
+
 export interface HttpResponse<T> extends Response {
   parsedBody?: T;
 }

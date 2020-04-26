@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { PostsList, CreatePost } from "./components";
-import { CityPost } from "./post.model";
-import { retrieveAllPosts } from "./logic";
+import { CityPost } from "./store/types";
+import { retrieveAllPosts, createPost } from "./logic";
 
 const App: React.FC = () => {
   const [cities, setCities] = useState<any>([]);
-  const [view, setView] = useState<string>();
+  const [view, setView] = useState<string>("");
 
   useEffect(() => {
     let response;
@@ -13,19 +13,11 @@ const App: React.FC = () => {
       (async () => {
         response = await retrieveAllPosts<CityPost[]>();
         setCities(response);
-        console.log("response", response);
       })();
     } catch (response) {
       console.log("Error", response);
     }
-  }, []);
-
-  // const createPostHandler = (title: string) => {
-  //   setCities((prevPosts) => [
-  //     ...prevPosts,
-  //     { id: Math.random().toString(), title: title },
-  //   ]);
-  // };
+  }, [cities]);
 
   // const deletePostHandler = (postId: string) => {
   //   setCities((prevPosts) => {
@@ -36,8 +28,9 @@ const App: React.FC = () => {
     setView("create");
   };
 
-  const handleCreatePost = (data: any) => {
-    console.log(data);
+  const handleCreatePost = async (data: any) => {
+    await createPost(data);
+    setView("");
   };
 
   return (

@@ -7,9 +7,8 @@ type CreatePostProps = {
     title: string;
     content: string;
     image_url: string;
-    lat: number;
-    long: number;
-    created_at: Date;
+    lat: string;
+    long: string;
   }) => void;
 };
 
@@ -39,24 +38,22 @@ const CreatePost: React.FC<CreatePostProps> = (props) => {
       title: string;
       content: string;
       image_url: string;
-      lat: number;
-      long: number;
-      created_at: Date;
+      lat: string;
+      long: string;
     } = {
       title: "",
       content: "",
       image_url: "",
-      lat: 0,
-      long: 0,
-      created_at: new Date(),
+      lat: "",
+      long: "",
     };
 
     data.title = textInputRef.current!.value;
     data.content = textAreaInputRef.current!.value;
-    data.image_url = resolve(__dirname, imageRef.current!.value);
+    data.image_url = imageRef.current!.value;
 
-    data.lat = latLng.lat;
-    data.long = latLng.lng;
+    data.lat = latLng.lat.toString();
+    data.long = latLng.lng.toString();
 
     props.onCreatePost(data);
   };
@@ -72,13 +69,14 @@ const CreatePost: React.FC<CreatePostProps> = (props) => {
           rows={4}
           cols={50}
         />
-        <input
+        <input ref={imageRef} type="text" placeholder="Put url of the image" />
+        {/* <input
           ref={imageRef}
           type="file"
           id="img"
           name="img"
           accept="image/*"
-        />
+        /> */}
       </div>
       <>
         <Map
