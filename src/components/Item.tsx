@@ -9,7 +9,7 @@ const Item: React.FC<CityPost> = (props) => {
       <p>{props.content}</p>
       <img src={props.image_url} alt="" />
       <h2>Location: </h2>
-      <MapView />
+      <MapView lat={props.lat} long={props.long} />
       {/* <div className="map">
           <MapView lat={+props.lat} long={+props.long} />
         </div>

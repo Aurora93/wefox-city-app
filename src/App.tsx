@@ -5,6 +5,7 @@ import { retrieveAllPosts } from "./logic";
 
 const App: React.FC = () => {
   const [cities, setCities] = useState<any>([]);
+  const [view, setView] = useState<string>();
 
   useEffect(() => {
     let response;
@@ -31,10 +32,17 @@ const App: React.FC = () => {
   //     return prevPosts.filter((post) => post.id !== postId);
   //   });
   // };
+  const toCreateHandler = () => {
+    setView("create");
+  };
 
   return (
     <div className="App">
       <h1 className="App-title">Wefox City Search </h1>
+      <button onClick={toCreateHandler}>
+        Do you want add one more city? Click here!
+      </button>
+      {view === "create" && <CreatePost />}
       <PostsList items={cities} />
     </div>
   );
