@@ -1,17 +1,37 @@
-import React from 'react'
+import React from "react";
+import Item from "./Item";
 
 interface PostsListProps {
-    items: {id: string, title: string}[];
-    onDeletePost: (id: string) => void;
+  items: {
+    id: number;
+    title: string;
+    content: string;
+    lat: string;
+    long: string;
+    image_url: string;
+    created_at: string;
+    updated_at: string;
+  }[];
+  //onDeletePost: (id: string) => void;
+}
+
+const PostsList: React.FC<PostsListProps> = (props) => {
+  return (
+    <ul>
+      {props.items.map((post) => (
+        <Item
+          id={post.id}
+          title={post.title}
+          content={post.content}
+          lat={post.lat}
+          long={post.long}
+          image_url={post.image_url}
+          created_at={post.created_at}
+          updated_at={post.updated_at}
+        />
+      ))}
+    </ul>
+  );
 };
 
-const PostsList: React.FC <PostsListProps> = props => {
-    return <ul>
-        {props.items.map(post => <li key = {post.id}>
-            <span>{post.title}</span>
-            <button onClick={props.onDeletePost.bind(null, post.id)}>Delete</button>
-        </li>)}
-    </ul>;
-};
-
-export default PostsList
+export default PostsList;
