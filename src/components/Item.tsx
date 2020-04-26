@@ -10,10 +10,11 @@ const Item: React.FC<CityPost> = (props) => {
         <p>{props.content}</p>
         <img src={props.image_url} alt="" width="50" height="50" />
         <h2>Location: </h2>
-        <div className="map">
-          <MapView lat={props.lat} long={props.long} />
+        <MapView />
+        {/* <div className="map">
+          <MapView lat={+props.lat} long={+props.long} />
         </div>
-        {/* <button onClick={props.onDeletePost.bind(null, post.id)}>
+        <button onClick={props.onDeletePost.bind(null, post.id)}>
             Delete
           </button> */}
       </div>

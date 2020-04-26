@@ -20,6 +20,7 @@ const PostsList: React.FC<PostsListProps> = (props) => {
     <ul>
       {props.items.map((post) => (
         <Item
+          key={post.id}
           id={post.id}
           title={post.title}
           content={post.content}

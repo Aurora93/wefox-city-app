@@ -1,4 +1,4 @@
-interface PostsListProps {
+export interface PostsListProps {
   items: {
     id: number;
     title: string;

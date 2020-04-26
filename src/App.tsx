@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { PostsList, CreatePost } from "./components";
 import { CityPost } from "./post.model";
 import { retrieveAllPosts } from "./logic";
-import { HttpResponse } from "./logic/retrieve-all-posts";
 
 const App: React.FC = () => {
   const [cities, setCities] = useState<any>([]);
