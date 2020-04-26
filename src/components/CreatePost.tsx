@@ -1,44 +1,90 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Map, Marker, Popup, TileLayer } from "react-leaflet";
+import { resolve } from "path";
 
-// type CreatePostProps = {
-//   onCreatePost: (postText: string) => void;
-// };
+type CreatePostProps = {
+  onCreatePost: (postText: {
+    title: string;
+    content: string;
+    image_url: string;
+    lat: number;
+    long: number;
+    created_at: Date;
+  }) => void;
+};
 
-const CreatePost: React.FC = (props) => {
+const CreatePost: React.FC<CreatePostProps> = (props) => {
   const textInputRef = useRef<HTMLInputElement>(null);
-  let [latLng, setLatLng] = useState({ lat: 0, lng: 0 });
+  const textAreaInputRef = useRef<HTMLTextAreaElement>(null);
+  const imageRef = useRef<HTMLInputElement>(null);
+  const [latLng, setLatLng] = useState({ lat: 0, lng: 0 });
 
-  useEffect(() => {}, [latLng]);
-  // handleClick(e){
-  //   setCorrds(e.latlng );
-  // }
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const coordinates = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      };
+      setLatLng(coordinates);
+    });
+  }, []);
 
-  //   const postSubmitHandler = (event: React.FormEvent) => {
-  //     event.preventDefault();
-  //     const enteredText = textInputRef.current!.value;
-  //     props.onCreatePost(enteredText);
-  //   };
-  function updateMarker(latlng: any) {
+  function updateMarker(latlng: { lat: number; lng: number }) {
     setLatLng(latlng);
   }
 
+  const handleForm = (event: React.FormEvent) => {
+    event.preventDefault();
+    let data: {
+      title: string;
+      content: string;
+      image_url: string;
+      lat: number;
+      long: number;
+      created_at: Date;
+    } = {
+      title: "",
+      content: "",
+      image_url: "",
+      lat: 0,
+      long: 0,
+      created_at: new Date(),
+    };
+
+    data.title = textInputRef.current!.value;
+    data.content = textAreaInputRef.current!.value;
+    data.image_url = resolve(__dirname, imageRef.current!.value);
+
+    data.lat = latLng.lat;
+    data.long = latLng.lng;
+
+    props.onCreatePost(data);
+  };
+
   return (
-    <form>
+    <form onSubmit={handleForm}>
       <div className="form-control">
         <label htmlFor="post-text">Post city</label>
-        <input type="text" placeholder="Name of the city" ref={textInputRef} />
-        <input
-          type="text"
+        <input ref={textInputRef} type="text" placeholder="Name of the city" />
+        <textarea
+          ref={textAreaInputRef}
           placeholder="Description of the city"
-          ref={textInputRef}
+          rows={4}
+          cols={50}
+        />
+        <input
+          ref={imageRef}
+          type="file"
+          id="img"
+          name="img"
+          accept="image/*"
         />
       </div>
       <>
         <Map
           className="map"
-          center={[51.505, -0.09]}
-          zoom={12}
+          center={[latLng.lat, latLng.lng]}
+          zoom={10}
           onClick={({ latlng }: any) => updateMarker(latlng)}
         >
           <TileLayer
@@ -47,7 +93,7 @@ const CreatePost: React.FC = (props) => {
           />
           <Marker position={[latLng.lat, latLng.lng]}>
             <Popup>
-              <p>You are here!</p>
+              <p>Selected location</p>
             </Popup>
           </Marker>
         </Map>

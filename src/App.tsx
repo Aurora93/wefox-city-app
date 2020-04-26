@@ -36,6 +36,10 @@ const App: React.FC = () => {
     setView("create");
   };
 
+  const handleCreatePost = (data: any) => {
+    console.log(data);
+  };
+
   return (
     <div className="App">
       <h1 className="App-title">Wefox City Search </h1>
@@ -44,7 +48,7 @@ const App: React.FC = () => {
           Do you want add one more city? Click here!
         </button>
       </div>
-      {view === "create" && <CreatePost />}
+      {view === "create" && <CreatePost onCreatePost={handleCreatePost} />}
       <PostsList items={cities} />
     </div>
   );
