@@ -34,6 +34,7 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
+      <h1 className="App-title">Wefox City Search </h1>
       <PostsList items={cities} />
     </div>
   );

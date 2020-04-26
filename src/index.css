@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Baloo+Tamma+2&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swa");
 form {
   width: 90%;
   max-width: 40rem;
@@ -54,27 +56,47 @@ ul {
   padding: 0;
 }
 
-li {
+.item-container {
   margin: 1rem 0;
   padding: 1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   border-radius: 6px;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  background-color: #f6d198;
+}
+
+img {
+  width: 50vw;
+  height: 50vh;
 }
 
 .map {
-  width: 600px;
-  height: 400px;
+  width: 300px;
+  height: 200px;
 }
 
 html {
-  font-family: sans-serif;
+  font-family: "Baloo Tamma 2";
+  background-color: #7ebdb4;
 }
 
 body {
   margin: 0;
+}
+
+.App {
+  width: 100%;
+}
+
+.App-title {
+  text-align: center;
+  font-size: 5rem;
+  color: #f4a548;
+  font-family: "Pacifico";
+  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
 }
 
 /*# sourceMappingURL=index.css.map */
