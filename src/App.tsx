@@ -1,11 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { PostsList, CreatePost } from "./components";
 import { CityPost } from "./store/types";
-import { retrieveAllPosts, createPost } from "./logic";
+import { retrieveAllPosts, createPost, deletePost } from "./logic";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 
 const App: React.FC = () => {
   const [cities, setCities] = useState<any>([]);
   const [view, setView] = useState<string>("");
+
+  const options = {
+    title: "Confirm to submit",
+    message: "Are you sure to do this.",
+    buttons: [
+      {
+        label: "Yes",
+        onClick: () => alert("Click Yes"),
+      },
+      {
+        label: "No",
+        onClick: () => alert("Click No"),
+      },
+    ],
+  };
+
+  const submit = () => {
+    confirmAlert(options);
+  };
 
   useEffect(() => {
     let response;
@@ -28,21 +49,28 @@ const App: React.FC = () => {
     setView("create");
   };
 
-  const handleCreatePost = async (data: any) => {
+  const CreatePostHandler = async (data: any) => {
     await createPost(data);
     setView("");
   };
 
+  const deletePostHandler = async (id: number) => {
+    await deletePost(id);
+  };
+
   return (
     <div className="App">
+      <div className="container">
+        <button onClick={submit}>Confirm dialog</button>
+      </div>
       <h1 className="App-title">Wefox City Search </h1>
       <div className="button__top">
         <button className="button__top" onClick={toCreateHandler}>
           Do you want add one more city? Click here!
         </button>
       </div>
-      {view === "create" && <CreatePost onCreatePost={handleCreatePost} />}
-      <PostsList items={cities} />
+      {view === "create" && <CreatePost onCreatePost={CreatePostHandler} />}
+      <PostsList items={cities} onDeletePost={deletePostHandler} />
     </div>
   );
 };

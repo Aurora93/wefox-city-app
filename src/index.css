@@ -38,7 +38,7 @@ ul {
   padding: 0;
 }
 
-.item-container {
+.item {
   margin: 1rem 0;
   padding: 1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
@@ -48,6 +48,23 @@ ul {
   justify-content: space-between;
   align-items: center;
   background-color: #f6d198;
+}
+.item__title {
+  padding-left: 30px;
+}
+.item__actions {
+  padding-right: 30px;
+  display: flex;
+  flex-direction: row;
+  width: 10%;
+  justify-content: space-around;
+}
+.item__header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
 
 img {

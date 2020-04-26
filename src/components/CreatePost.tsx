@@ -70,13 +70,6 @@ const CreatePost: React.FC<CreatePostProps> = (props) => {
           cols={50}
         />
         <input ref={imageRef} type="text" placeholder="Put url of the image" />
-        {/* <input
-          ref={imageRef}
-          type="file"
-          id="img"
-          name="img"
-          accept="image/*"
-        /> */}
       </div>
       <>
         <Map

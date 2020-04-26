@@ -12,10 +12,13 @@ interface PostsListProps {
     created_at: string;
     updated_at: string;
   }[];
-  //onDeletePost: (id: string) => void;
+  onDeletePost: (id: number) => void;
 }
 
 const PostsList: React.FC<PostsListProps> = (props) => {
+  const onDeletePost = (id: number) => {
+    props.onDeletePost(id);
+  };
   return (
     <ul>
       {props.items.map((post) => (
@@ -29,6 +32,7 @@ const PostsList: React.FC<PostsListProps> = (props) => {
           image_url={post.image_url}
           created_at={post.created_at}
           updated_at={post.updated_at}
+          onDeletePost={onDeletePost}
         />
       ))}
     </ul>
