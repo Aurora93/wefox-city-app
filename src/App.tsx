@@ -39,9 +39,11 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <h1 className="App-title">Wefox City Search </h1>
-      <button onClick={toCreateHandler}>
-        Do you want add one more city? Click here!
-      </button>
+      <div className="button__top">
+        <button className="button__top" onClick={toCreateHandler}>
+          Do you want add one more city? Click here!
+        </button>
+      </div>
       {view === "create" && <CreatePost />}
       <PostsList items={cities} />
     </div>

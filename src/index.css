@@ -77,6 +77,10 @@ button {
   cursor: pointer;
   border-radius: 4px;
 }
+button__top {
+  width: 50%;
+  margin: auto 25%;
+}
 
 button:focus {
   outline: none;
