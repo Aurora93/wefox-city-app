@@ -61,7 +61,7 @@ const CreatePost: React.FC<CreatePostProps> = (props) => {
   return (
     <form onSubmit={handleForm}>
       <div className="form-control">
-        <label htmlFor="post-text">Post city</label>
+        {/* <label htmlFor="post-text">Post city</label> */}
         <input ref={textInputRef} type="text" placeholder="Name of the city" />
         <textarea
           ref={textAreaInputRef}
@@ -72,6 +72,7 @@ const CreatePost: React.FC<CreatePostProps> = (props) => {
         <input ref={imageRef} type="text" placeholder="Put url of the image" />
       </div>
       <>
+        <p>Click on the map to set a marker on where the city is located</p>
         <Map
           className="map"
           center={[latLng.lat, latLng.lng]}

@@ -1,11 +1,28 @@
 import React from "react";
 import { CityPost } from "../store/types";
 import MapView from "./MapView";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 
 const Item: React.FC<CityPost> = (props) => {
+  const options = {
+    title: "Confirm to delete",
+    message: "Are you sure you want to delete this post?",
+    buttons: [
+      {
+        label: "Yes",
+        onClick: () => props.onDeletePost(props.id),
+      },
+      {
+        label: "No",
+        onClick: () => console.log("Click No"),
+      },
+    ],
+  };
+
   const onDelete = (event: any) => {
     event.preventDefault();
-    props.onDeletePost(props.id);
+    confirmAlert(options);
   };
 
   return (
@@ -22,7 +39,7 @@ const Item: React.FC<CityPost> = (props) => {
         </div>
       </div>
       <p>{props.content}</p>
-      <img src={props.image_url} alt="" />
+      <img src={props.image_url} alt={props.title} />
       <h2>Location: </h2>
       <MapView lat={props.lat} long={props.long} />
     </div>
