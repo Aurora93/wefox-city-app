@@ -51,9 +51,18 @@ const App: React.FC = () => {
         {view === "create" && (
           <CreatePost onCreatePost={CreatePostHandler} onBack={onBackHandler} />
         )}
-        <PostsList items={cities} />
+        {/* <PostsList items={cities} /> */}
         <Switch>
           <Route path="/" render={(props) => <PostsList items={cities} />} />
+          <Route
+            path="/create-post"
+            render={(props) => (
+              <CreatePost
+                onCreatePost={CreatePostHandler}
+                onBack={onBackHandler}
+              />
+            )}
+          />
         </Switch>
       </div>
     </Router>

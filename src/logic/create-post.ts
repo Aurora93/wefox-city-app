@@ -1,4 +1,6 @@
-export interface CityPost {
+const fetch = require("node-fetch");
+
+interface CityPost {
   id: number;
   title: string;
   content: string;
@@ -7,7 +9,7 @@ export interface CityPost {
   image_url: string;
 }
 
-export interface HttpResponse<T> extends Response {
+interface HttpResponse<T> extends Response {
   parsedBody?: T;
 }
 

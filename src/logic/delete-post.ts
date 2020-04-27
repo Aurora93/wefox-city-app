@@ -1,4 +1,6 @@
-export interface HttpResponse<T> extends Response {
+const fetch = require("node-fetch");
+
+interface HttpResponse<T> extends Response {
   parsedBody?: T;
 }
 

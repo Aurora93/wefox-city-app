@@ -1,4 +1,6 @@
-export interface UpdatePostProps {
+const fetch = require("node-fetch");
+
+interface UpdatePostProps {
   title: string;
   content: string;
   lat: string;
@@ -6,7 +8,7 @@ export interface UpdatePostProps {
   image_url: string;
 }
 
-export interface HttpResponse<T> extends Response {
+interface HttpResponse<T> extends Response {
   parsedBody?: T;
 }
 

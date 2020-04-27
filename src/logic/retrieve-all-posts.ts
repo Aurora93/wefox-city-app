@@ -1,4 +1,6 @@
-export interface CityPost {
+const fetch = require("node-fetch");
+
+interface CityPost {
   id: number;
   title: string;
   content: string;
@@ -9,7 +11,7 @@ export interface CityPost {
   updated_at: string;
 }
 
-export interface HttpResponse<T> extends Response {
+interface HttpResponse<T> extends Response {
   parsedBody?: T;
 }
 
@@ -19,7 +21,6 @@ async function retrieveAllPosts<T>(): Promise<HttpResponse<T>> {
   );
   if (response.status === 200) {
     try {
-      // may error if there is no body
       let body = await response.json();
       return body;
     } catch (ex) {}
