@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { CityPost } from "../store/types";
-// import { Map, Marker, Popup, TileLayer } from "react-leaflet";
 import MapView from "./MapView";
 import { confirmAlert } from "react-confirm-alert";
 import { deletePost } from "../logic";
@@ -9,10 +8,6 @@ import { UpdatePost } from "./";
 
 const Item: React.FC<CityPost> = (props) => {
   const [updateWin, setUpdateWin] = useState();
-  // const textInputRef = useRef<HTMLInputElement>(null);
-  // const textAreaInputRef = useRef<HTMLTextAreaElement>(null);
-  // const imageRef = useRef<HTMLInputElement>(null);
-  // const [latLng, setLatLng] = useState({ lat: props.lat, lng: props.long });
 
   const options = {
     title: "Confirm to delete",
@@ -39,37 +34,9 @@ const Item: React.FC<CityPost> = (props) => {
     setUpdateWin(props.id);
   };
 
-  // function updateMarker(latlng: { lat: string; lng: string }) {
-  //   setLatLng(latlng);
-  // }
-
   const handleGoBack = () => {
     setUpdateWin(0);
   };
-
-  // const handleUpdate = (event: React.FormEvent) => {
-  //   event.preventDefault();
-  //   let data: {
-  //     title: string;
-  //     content: string;
-  //     image_url: string;
-  //     lat: string;
-  //     long: string;
-  //   } = {
-  //     title: "",
-  //     content: "",
-  //     image_url: "",
-  //     lat: "",
-  //     long: "",
-  //   };
-
-  //   data.title = textInputRef.current!.value;
-  //   data.content = textAreaInputRef.current!.value;
-  //   data.image_url = imageRef.current!.value;
-
-  //   data.lat = latLng.lat.toString();
-  //   data.long = latLng.lng.toString();
-  // };
 
   return (
     <>

@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { PostsList, CreatePost } from "./components";
 import { CityPost } from "./store/types";
-import { retrieveAllPosts, createPost, deletePost } from "./logic";
-// import { confirmAlert } from "react-confirm-alert";
-// import "react-confirm-alert/src/react-confirm-alert.css";
+import { retrieveAllPosts, createPost } from "./logic";
 
 const App: React.FC = () => {
   const [cities, setCities] = useState<any>([]);
@@ -21,11 +19,6 @@ const App: React.FC = () => {
     }
   }, [cities]);
 
-  // const deletePostHandler = (postId: string) => {
-  //   setCities((prevPosts) => {
-  //     return prevPosts.filter((post) => post.id !== postId);
-  //   });
-  // };
   const toCreateHandler = () => {
     setView("create");
   };
@@ -35,9 +28,9 @@ const App: React.FC = () => {
     setView("");
   };
 
-  // const deletePostHandler = async (id: number) => {
-  //   await deletePost(id);
-  // };
+  const onBackHandler = () => {
+    setView("");
+  };
 
   return (
     <div className="App">
@@ -47,7 +40,9 @@ const App: React.FC = () => {
           Do you want add one more city? Click here!
         </button>
       </div>
-      {view === "create" && <CreatePost onCreatePost={CreatePostHandler} />}
+      {view === "create" && (
+        <CreatePost onCreatePost={CreatePostHandler} onBack={onBackHandler} />
+      )}
       <PostsList items={cities} />
     </div>
   );

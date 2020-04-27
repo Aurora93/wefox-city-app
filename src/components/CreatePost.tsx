@@ -9,6 +9,7 @@ type CreatePostProps = {
     lat: string;
     long: string;
   }) => void;
+  onBack: () => void;
 };
 
 const CreatePost: React.FC<CreatePostProps> = (props) => {
@@ -60,7 +61,6 @@ const CreatePost: React.FC<CreatePostProps> = (props) => {
   return (
     <form onSubmit={handleForm}>
       <div className="form-control">
-        {/* <label htmlFor="post-text">Post city</label> */}
         <input ref={textInputRef} type="text" placeholder="Name of the city" />
         <textarea
           ref={textAreaInputRef}
@@ -90,6 +90,7 @@ const CreatePost: React.FC<CreatePostProps> = (props) => {
         </Map>
       </>
       <button type="submit">Add post!</button>
+      <button onClick={() => props.onBack()}>Back</button>
     </form>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import { Map, Marker, Popup, TileLayer } from "react-leaflet";
+import { updatePost } from "../logic/";
 
 export interface UpdatePostProps {
   id: number;
@@ -21,7 +22,7 @@ const UpdatePost: React.FC<UpdatePostProps> = (props) => {
     setLatLng(latlng);
   }
 
-  const handleUpdate = (event: React.FormEvent) => {
+  const handleUpdate = async (event: React.FormEvent) => {
     event.preventDefault();
     let data: {
       title: string;
@@ -44,7 +45,8 @@ const UpdatePost: React.FC<UpdatePostProps> = (props) => {
     data.lat = latLng.lat.toString();
     data.long = latLng.lng.toString();
 
-    console.log(data);
+    await updatePost(data, props.id);
+    props.onBack();
   };
 
   return (
