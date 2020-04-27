@@ -61,14 +61,25 @@ const CreatePost: React.FC<CreatePostProps> = (props) => {
   return (
     <form onSubmit={handleForm}>
       <div className="form-control">
-        <input ref={textInputRef} type="text" placeholder="Name of the city" />
+        <input
+          ref={textInputRef}
+          type="text"
+          placeholder="Name of the city"
+          required
+        />
         <textarea
           ref={textAreaInputRef}
           placeholder="Description of the city"
           rows={4}
           cols={50}
+          required
         />
-        <input ref={imageRef} type="text" placeholder="Put url of the image" />
+        <input
+          ref={imageRef}
+          type="text"
+          placeholder="Put url of the image"
+          required
+        />
       </div>
       <>
         <p>Click on the map to set a marker on where the city is located</p>

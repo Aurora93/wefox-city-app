@@ -17,6 +17,14 @@ const UpdatePost: React.FC<UpdatePostProps> = (props) => {
   const textAreaInputRef = useRef<HTMLTextAreaElement>(null);
   const imageRef = useRef<HTMLInputElement>(null);
   const [latLng, setLatLng] = useState({ lat: props.lat, lng: props.long });
+  const [error, setError] = useState<any>();
+
+  function __handleError__(message: any) {
+    setError(message);
+    setTimeout(() => {
+      setError(null);
+    }, 5000);
+  }
 
   function updateMarker(latlng: { lat: string; lng: string }) {
     setLatLng(latlng);
@@ -45,13 +53,18 @@ const UpdatePost: React.FC<UpdatePostProps> = (props) => {
     data.lat = latLng.lat.toString();
     data.long = latLng.lng.toString();
 
-    await updatePost(data, props.id);
-    props.onBack();
+    try {
+      await updatePost(data, props.id);
+      props.onBack();
+    } catch (error) {
+      __handleError__(error.message);
+    }
   };
 
   return (
     <form onSubmit={handleUpdate}>
       <div className="form-control">
+        {error && <p>{error}</p>}
         <input ref={textInputRef} type="text" defaultValue={props.title} />
         <textarea
           ref={textAreaInputRef}

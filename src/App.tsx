@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { PostsList, CreatePost, UpdatePost } from "./components";
+import { PostsList, CreatePost } from "./components";
 import { CityPost } from "./store/types";
 import { retrieveAllPosts, createPost } from "./logic";
-import {
-  HashRouter as Router,
-  Route,
-  Link,
-  Switch,
-  RouteComponentProps,
-} from "react-router-dom";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 
 const App: React.FC = () => {
   const [cities, setCities] = useState<any>([]);
   const [view, setView] = useState<string>("");
+  const [error, setError] = useState<any>(null);
+
+  function __handleError__(message: any) {
+    setError(message);
+    setTimeout(() => {
+      setError(null);
+    }, 5000);
+  }
 
   useEffect(() => {
     let response;
@@ -21,8 +23,8 @@ const App: React.FC = () => {
         response = await retrieveAllPosts<CityPost[]>();
         setCities(response);
       })();
-    } catch (response) {
-      console.log("Error", response);
+    } catch (error) {
+      __handleError__(error.message);
     }
   }, [cities]);
 
@@ -31,8 +33,12 @@ const App: React.FC = () => {
   };
 
   const CreatePostHandler = async (data: any) => {
-    await createPost(data);
-    setView("");
+    try {
+      await createPost(data);
+      setView("");
+    } catch (error) {
+      __handleError__(error.message);
+    }
   };
 
   const onBackHandler = () => {
@@ -43,6 +49,7 @@ const App: React.FC = () => {
     <Router>
       <div className="App">
         <h1 className="App-title">Wefox City Search </h1>
+        {error && <p>{error}</p>}
         <div className="button__top">
           <button onClick={toCreateHandler}>
             Do you want add one more city? Click here!
@@ -51,7 +58,6 @@ const App: React.FC = () => {
         {view === "create" && (
           <CreatePost onCreatePost={CreatePostHandler} onBack={onBackHandler} />
         )}
-        {/* <PostsList items={cities} /> */}
         <Switch>
           <Route path="/" render={(props) => <PostsList items={cities} />} />
           <Route

@@ -8,6 +8,14 @@ import { UpdatePost } from "./";
 
 const Item: React.FC<CityPost> = (props) => {
   const [updateWin, setUpdateWin] = useState();
+  const [error, setError] = useState<any>();
+
+  function __handleError__(message: any) {
+    setError(message);
+    setTimeout(() => {
+      setError(null);
+    }, 5000);
+  }
 
   const options = {
     title: "Confirm to delete",
@@ -15,7 +23,13 @@ const Item: React.FC<CityPost> = (props) => {
     buttons: [
       {
         label: "Yes",
-        onClick: async () => await deletePost(props.id),
+        onClick: async () => {
+          try {
+            await deletePost(props.id);
+          } catch (error) {
+            __handleError__(error.message);
+          }
+        },
       },
       {
         label: "No",
