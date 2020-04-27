@@ -1,7 +1,5 @@
-import PostsList from './PostsList'
-import CreatePost from './CreatePost'
+import PostsList from "./PostsList";
+import CreatePost from "./CreatePost";
+import UpdatePost from "./UpdatePost";
 
-export {
-    PostsList,
-    CreatePost
-}
+export { PostsList, CreatePost, UpdatePost };

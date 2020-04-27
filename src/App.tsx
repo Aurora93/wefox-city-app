@@ -9,25 +9,6 @@ const App: React.FC = () => {
   const [cities, setCities] = useState<any>([]);
   const [view, setView] = useState<string>("");
 
-  // const options = {
-  //   title: "Confirm to submit",
-  //   message: "Are you sure to do this.",
-  //   buttons: [
-  //     {
-  //       label: "Yes",
-  //       onClick: () => alert("Click Yes"),
-  //     },
-  //     {
-  //       label: "No",
-  //       onClick: () => alert("Click No"),
-  //     },
-  //   ],
-  // };
-
-  // const submit = () => {
-  //   confirmAlert(options);
-  // };
-
   useEffect(() => {
     let response;
     try {

@@ -1,37 +1,27 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { Map, Marker, Popup, TileLayer } from "react-leaflet";
 
-type CreatePostProps = {
-  onCreatePost: (postText: {
-    title: string;
-    content: string;
-    image_url: string;
-    lat: string;
-    long: string;
-  }) => void;
-};
+export interface UpdatePostProps {
+  id: number;
+  title: string;
+  content: string;
+  lat: string;
+  long: string;
+  image_url: string;
+  onBack: () => void;
+}
 
-const CreatePost: React.FC<CreatePostProps> = (props) => {
+const UpdatePost: React.FC<UpdatePostProps> = (props) => {
   const textInputRef = useRef<HTMLInputElement>(null);
   const textAreaInputRef = useRef<HTMLTextAreaElement>(null);
   const imageRef = useRef<HTMLInputElement>(null);
-  const [latLng, setLatLng] = useState({ lat: 0, lng: 0 });
+  const [latLng, setLatLng] = useState({ lat: props.lat, lng: props.long });
 
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      const coordinates = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
-      };
-      setLatLng(coordinates);
-    });
-  }, []);
-
-  function updateMarker(latlng: { lat: number; lng: number }) {
+  function updateMarker(latlng: { lat: string; lng: string }) {
     setLatLng(latlng);
   }
 
-  const handleForm = (event: React.FormEvent) => {
+  const handleUpdate = (event: React.FormEvent) => {
     event.preventDefault();
     let data: {
       title: string;
@@ -54,27 +44,26 @@ const CreatePost: React.FC<CreatePostProps> = (props) => {
     data.lat = latLng.lat.toString();
     data.long = latLng.lng.toString();
 
-    props.onCreatePost(data);
+    console.log(data);
   };
 
   return (
-    <form onSubmit={handleForm}>
+    <form onSubmit={handleUpdate}>
       <div className="form-control">
-        {/* <label htmlFor="post-text">Post city</label> */}
-        <input ref={textInputRef} type="text" placeholder="Name of the city" />
+        <input ref={textInputRef} type="text" defaultValue={props.title} />
         <textarea
           ref={textAreaInputRef}
-          placeholder="Description of the city"
+          defaultValue={props.content}
           rows={4}
           cols={50}
         />
-        <input ref={imageRef} type="text" placeholder="Put url of the image" />
+        <input ref={imageRef} type="text" defaultValue={props.image_url} />
       </div>
       <>
         <p>Click on the map to set a marker on where the city is located</p>
         <Map
           className="map"
-          center={[latLng.lat, latLng.lng]}
+          center={[+latLng.lat, +latLng.lng]}
           zoom={10}
           onClick={({ latlng }: any) => updateMarker(latlng)}
         >
@@ -82,16 +71,17 @@ const CreatePost: React.FC<CreatePostProps> = (props) => {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           />
-          <Marker position={[latLng.lat, latLng.lng]}>
+          <Marker position={[+latLng.lat, +latLng.lng]}>
             <Popup>
               <p>Selected location</p>
             </Popup>
           </Marker>
         </Map>
       </>
-      <button type="submit">Add post!</button>
+      <button type="submit">Update post!</button>
+      <button onClick={() => props.onBack()}>Back</button>
     </form>
   );
 };
 
-export default CreatePost;
+export default UpdatePost;
