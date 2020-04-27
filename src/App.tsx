@@ -54,9 +54,9 @@ const App: React.FC = () => {
     setView("");
   };
 
-  const deletePostHandler = async (id: number) => {
-    await deletePost(id);
-  };
+  // const deletePostHandler = async (id: number) => {
+  //   await deletePost(id);
+  // };
 
   return (
     <div className="App">
@@ -67,7 +67,7 @@ const App: React.FC = () => {
         </button>
       </div>
       {view === "create" && <CreatePost onCreatePost={CreatePostHandler} />}
-      <PostsList items={cities} onDeletePost={deletePostHandler} />
+      <PostsList items={cities} />
     </div>
   );
 };

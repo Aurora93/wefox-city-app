@@ -2,6 +2,7 @@ import React from "react";
 import { CityPost } from "../store/types";
 import MapView from "./MapView";
 import { confirmAlert } from "react-confirm-alert";
+import { deletePost } from "../logic";
 import "react-confirm-alert/src/react-confirm-alert.css";
 
 const Item: React.FC<CityPost> = (props) => {
@@ -11,7 +12,7 @@ const Item: React.FC<CityPost> = (props) => {
     buttons: [
       {
         label: "Yes",
-        onClick: () => props.onDeletePost(props.id),
+        onClick: async () => await deletePost(props.id),
       },
       {
         label: "No",
