@@ -13,12 +13,14 @@
     "@types/react": "^16.9.34",
     "@types/react-dom": "^16.9.6",
     "@types/react-leaflet": "^2.5.1",
+    "@types/react-router-dom": "^5.1.5",
     "google-map-react": "^1.1.7",
     "leaflet": "^1.6.0",
     "react": "^16.13.1",
     "react-confirm-alert": "^2.6.1",
     "react-dom": "^16.13.1",
     "react-leaflet": "^2.6.3",
+    "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
     "typescript": "^3.7.5"
   },
@@ -45,6 +47,7 @@
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
+    "@types/query-string": "^6.3.0",
     "dotenv": "^8.2.0",
     "path": "^0.12.7"
   }

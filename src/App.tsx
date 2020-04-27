@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { PostsList, CreatePost } from "./components";
+import { PostsList, CreatePost, UpdatePost } from "./components";
 import { CityPost } from "./store/types";
 import { retrieveAllPosts, createPost } from "./logic";
+import {
+  HashRouter as Router,
+  Route,
+  Link,
+  Switch,
+  RouteComponentProps,
+} from "react-router-dom";
 
 const App: React.FC = () => {
   const [cities, setCities] = useState<any>([]);
@@ -33,18 +40,23 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="App">
-      <h1 className="App-title">Wefox City Search </h1>
-      <div className="button__top">
-        <button onClick={toCreateHandler}>
-          Do you want add one more city? Click here!
-        </button>
+    <Router>
+      <div className="App">
+        <h1 className="App-title">Wefox City Search </h1>
+        <div className="button__top">
+          <button onClick={toCreateHandler}>
+            Do you want add one more city? Click here!
+          </button>
+        </div>
+        {view === "create" && (
+          <CreatePost onCreatePost={CreatePostHandler} onBack={onBackHandler} />
+        )}
+        <PostsList items={cities} />
+        <Switch>
+          <Route path="/" render={(props) => <PostsList items={cities} />} />
+        </Switch>
       </div>
-      {view === "create" && (
-        <CreatePost onCreatePost={CreatePostHandler} onBack={onBackHandler} />
-      )}
-      <PostsList items={cities} />
-    </div>
+    </Router>
   );
 };
 
